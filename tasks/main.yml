@@ -1,0 +1,17 @@
+- name: Add general tasks
+  ansible.builtin.include_tasks: general_tasks.yml
+  when:
+    - cron is defined
+    - task.special_time is not defined
+  loop: "{{ cron }}"
+  loop_control:
+    loop_var: task
+
+- name: Add special_time tasks
+  ansible.builtin.include_tasks: specialtime_tasks.yml
+  when:
+    - cron is defined
+    - task.special_time is defined
+  loop: "{{ cron }}"
+  loop_control:
+    loop_var: task

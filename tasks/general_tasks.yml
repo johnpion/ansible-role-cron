@@ -1,0 +1,10 @@
+- name: Add task to crontab
+  ansible.builtin.cron:
+    name: "{{ task.name }}"
+    job: "{{ task.job }}"
+    minute: "{% if task.minute is defined %}{{ task.minute }}{% else %}*{% endif %}"
+    hour: "{% if task.hour is defined %}{{ task.hour }}{% else %}*{% endif %}"
+    day: "{% if task.day is defined %}{{ task.day }}{% else %}*{% endif %}"
+    month: "{% if task.month is defined %}{{ task.month }}{% else %}*{% endif %}"
+    weekday: "{% if task.weekday is defined %}{{ task.weekday }}{% else %}*{% endif %}"
+    user: "{% if task.user is defined %}{{ task.user }}{% else %}{{ ansible_user }}{% endif %}"
